@@ -1,0 +1,20 @@
+$black: #0e0d0d;
+$white: #c7c5c5;
+
+body {
+    background-color: $black;
+    color: $white;
+}
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 50px;
+}
+
+.search-breeds {
+   border:5px solid red;
+}
+
+.upload-image {
+    border: 5px solid greenyellow;
+}
