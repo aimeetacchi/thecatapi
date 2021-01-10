@@ -110,12 +110,17 @@ const getPhoto = async() => {
         },
     })
     let photos = await data.json()
-    
-    
+    console.log(photos.length)
 
+    let photoUrl = '';
     photos.forEach(photo => {
-        console.log(photo.url)
+        photoUrl += `<div class="img-box"><img class="photo-img" src=${photo.url}></div>`
+
+        document.querySelector('.photos').innerHTML = photoUrl;
     })
 }
+let getPhotosBtn = document.getElementById('get-photos');
+getPhotosBtn.addEventListener('click', () => {
+    getPhoto();
+})
 
-getPhoto()
