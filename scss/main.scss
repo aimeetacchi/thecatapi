@@ -18,3 +18,23 @@ body {
 .upload-image {
     border: 5px solid greenyellow;
 }
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    grid-gap: 20px;
+
+    .cat {
+        background-color: hotpink;
+        padding: 20px;
+        &__name {
+            color: $white;
+            font-size: 32px;
+        }
+        &__description {
+            color: $white;
+            font-size: 18px;
+        }
+    }
+}

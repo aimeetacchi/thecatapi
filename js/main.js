@@ -1,12 +1,13 @@
 import '../scss/main.scss';
 import 'regenerator-runtime/runtime'
+import { async } from 'regenerator-runtime/runtime';
 
 let apiKey = '439f241a-3e19-4e5d-8ef8-3a697de5e3fb';
 let url = 'https://api.thecatapi.com/v1/breeds';
 
 
 // SEARCH A CAT BREED ===
-let value, resultsDiv;
+let value;
 const search = document.getElementById('search');
 search.addEventListener('click', searchBreeds);
 
@@ -41,10 +42,30 @@ let fetchCatBreeds = async (value) => {
             }
         })   
     let breedData = await response.json(); 
+        
+       
+        // breedData.forEach(cat => {
             
-        breedData.forEach(cat => {
-            
-        })
+        //     let html =+ `<div class='cat'> ${cat.name} </div>`
+        //     document.querySelector('.results').innerHTML = html;
+        // })
+
+    let catEl = '';
+    // Loop to access all rows  
+    breedData.forEach(cat => {
+        console.log(cat);
+        let catDesc = cat.description ? `<p class="cat__description">${cat.description}</p>` : '<p class="cat__no-info">No Info</p>';
+        let catIntelligence = cat.intelligence ? `<p class="cat__intelligence">${cat.intelligence}</p>` : '<p class="cat__no-info">No Info</p>';
+
+        catEl += `<div class="cat">  
+                    <h2 class="cat__name">${cat.name} </h2> 
+                     ${catDesc}
+                     <p>${cat.life_span}<p>
+                     <p>${catIntelligence}</p>
+                </div>`; 
+                } )
+    // Setting innerHTML as tab variable 
+    document.querySelector('.results').innerHTML = catEl;
     }
 
 
@@ -70,6 +91,31 @@ let uploadCat = async (image) => {
 
     // printing the response - if all ok, should be a object of your file you uploaded.
     console.log(data)
+   
+    let node = document.createElement("div");                 // Create a <li> node
+    let textnode = document.createTextNode(`Thanks your photo has been uploaded`);         // Create a text node
+    node.appendChild(textnode);  
+    document.querySelector(".upload-image").appendChild(node);
 
-
+    
 }
+
+// Getting your Uploaded photos
+const getPhoto = async() => {
+    const data = await fetch('https://api.thecatapi.com/v1/images?limit=10', {
+    method: "GET",
+    mode: 'cors',
+    headers: {
+       "x-api-key": apiKey,
+        },
+    })
+    let photos = await data.json()
+    
+    
+
+    photos.forEach(photo => {
+        console.log(photo.url)
+    })
+}
+
+getPhoto()
